@@ -1,10 +1,9 @@
 # Task Manager @ Laravel
 !!! **no more than a learning project** !!!
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/4be5a1906f6ec307150a/maintainability)](https://codeclimate.com/github/1ike/project-lvl3-s158/maintainability)
-[![Build Status](https://travis-ci.org/1ike/project-lvl3-s158.svg?branch=master)](https://travis-ci.org/1ike/project-lvl3-s158)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/4be5a1906f6ec307150a/test_coverage)](https://codeclimate.com/github/1ike/project-lvl3-s158/test_coverage)
-
+[![Maintainability](https://api.codeclimate.com/v1/badges/fdc321e1aef0e048466d/maintainability)](https://codeclimate.com/github/1ike/project-lvl4-s167/maintainability)
+[![Build Status](https://travis-ci.org/1ike/project-lvl4-s167.svg?branch=master)](https://travis-ci.org/1ike/project-lvl4-s167)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/fdc321e1aef0e048466d/test_coverage)](https://codeclimate.com/github/1ike/project-lvl4-s167/test_coverage)
 
 ## License
 
