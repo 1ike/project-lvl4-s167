@@ -1,7 +1,6 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "1ike/taskmanager",
+    "description": "Task Manager @ Laravel Framework (no more than a learning project).",
     "license": "MIT",
     "type": "project",
     "require": {
