@@ -13,5 +13,8 @@ test:
 run:
 	php -S localhost:80 -t public
 
+s:
+	php artisan serve
+
 logs:
 	tail -f storage/logs/lumen.log
