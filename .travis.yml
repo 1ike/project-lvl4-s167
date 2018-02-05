@@ -7,8 +7,8 @@ install:
   - make install
 
 before_script:
-  - touch database/database.sqlite
-  - php artisan migrate
+  # - touch database/database.sqlite
+  # - php artisan migrate
 
 script: make test
 
