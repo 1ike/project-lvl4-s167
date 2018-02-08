@@ -16,5 +16,17 @@ run:
 s:
 	php artisan serve
 
+m:
+	php artisan migrate
+
+mf:
+	php artisan migrate:fresh
+
+seed:
+	php artisan db:seed
+
+fseed:
+	php artisan migrate:fresh --seed
+
 logs:
 	tail -f storage/logs/lumen.log

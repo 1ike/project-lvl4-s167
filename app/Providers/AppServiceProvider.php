@@ -13,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        /* Blade::directive('projectName', function () {
+            return 'Task Manager @ Laravel';
+        }); */
     }
 
     /**
@@ -23,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if ($this->app->environment('production')) {
+            $this->app->register(\Rollbar\Laravel\RollbarServiceProvider::class);
+        }
     }
 }
