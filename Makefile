@@ -30,3 +30,6 @@ fseed:
 
 logs:
 	tail -f storage/logs/lumen.log
+
+load:
+	composer dump-autoload
