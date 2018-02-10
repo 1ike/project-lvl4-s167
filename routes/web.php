@@ -12,5 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home');
+})->name('home');
+
+Auth::routes();
+
+Route::resource('users', 'UserController', ['except' => ['create', 'store', 'show']]);
+
+// Route::get('/home', 'HomeController@index')->name('home');
