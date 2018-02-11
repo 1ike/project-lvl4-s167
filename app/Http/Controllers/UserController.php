@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    /**
+     * Where to redirect users after update or delete.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/users';
+
+
     /**
      * Display a listing of the resource.
      *
@@ -15,20 +24,6 @@ class UserController extends Controller
     public function index()
     {
         $title = 'Users';
-        /* $user = [
-            'name' => str_random(10),
-            'email' => str_random(10).'@gmail.com',
-            'password' => bcrypt('secret'),
-            'remember_token' => str_random(10),
-        ];
-        User::create($user); */
-        /* DB::table('users')->insert([
-            'name' => str_random(10),
-            'email' => str_random(10).'@gmail.com',
-            'password' => bcrypt('secret'),
-            'remember_token' => str_random(10),
-        ]); */
-
         $users = User::paginate(10);
 
         return view('users/users', [
@@ -36,6 +31,20 @@ class UserController extends Controller
             'users' => $users,
         ]);
     }
+
+
+    /**
+     * Check is the user author or admin.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    protected function checkPermissions(User $user)
+    {
+        $this->middleware('auth');
+        $this->authorize('edit-user', $user);
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -45,7 +54,31 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        var_dump(env('APP_DEBUG'));
+        $this->checkPermissions($user);
+
+        $title = 'Edit user profile';
+
+        return view('users/edit', [
+            'title' => $title,
+            'user' => $user,
+        ]);
+    }
+
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
     }
 
     /**
@@ -57,8 +90,20 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $this->checkPermissions($user);
+
+        $data = $request->all();
+
+        $this->validator($data)->validate();
+
+        $user->name = $data['name'];
+        $user->email =$data['email'];
+        $user->password =bcrypt($data['password']);
+        $user->save();
+
+        return redirect($this->redirectTo);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -68,6 +113,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $this->checkPermissions($user);
+
+        $user->delete();
+        return redirect($this->redirectTo);
     }
 }

@@ -23,7 +23,7 @@
             <tr>
                 <th scope="row">{{ $user->id }}</th>
                 <td>
-                @if (Auth::user() && Auth::id() === $user->id)
+                @if (Auth::user() && Gate::allows('edit-user', $user))
                     <a href="{{ route('users.edit', ['id' => $user->id]) }}">{{ $user->name }}</a>
                 @else
                     {{ $user->name }}
