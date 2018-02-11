@@ -54,7 +54,6 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        var_dump(env('APP_DEBUG'));
         $this->checkPermissions($user);
 
         $title = 'Edit user profile';
@@ -101,6 +100,8 @@ class UserController extends Controller
         $user->password =bcrypt($data['password']);
         $user->save();
 
+        flash("Profile&nbsp; \"$user->name\" &nbsp;was updated!");
+
         return redirect($this->redirectTo);
     }
 
@@ -115,7 +116,9 @@ class UserController extends Controller
     {
         $this->checkPermissions($user);
 
+        flash("Profile&nbsp; \"$user->name\" &nbsp;was deleted!");
         $user->delete();
+
         return redirect($this->redirectTo);
     }
 }

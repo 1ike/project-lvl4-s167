@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <title>
         @php $currentRoute = Route::currentRouteName() @endphp
@@ -52,7 +51,7 @@
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('login') }}">
+                                    <a class="dropdown-item" href="{{ route('users.edit', ['id' => Auth::id()]) }}">
                                         Edit
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -73,6 +72,7 @@
         </nav>
 
         <main class="container py-4">
+            @include('flash::message')
             @yield('content')
         </main>
     </div>
