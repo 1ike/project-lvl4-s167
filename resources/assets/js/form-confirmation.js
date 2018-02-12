@@ -3,6 +3,6 @@ export default ($) => {
         event.preventDefault();
         if (confirm("Are you realy want delete profile?")) {
             this.submit();
-        } 
+        }
     });
 }
