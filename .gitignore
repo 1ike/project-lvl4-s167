@@ -12,5 +12,5 @@ yarn-error.log
 .env
 
 /database/db.sqlite
-build
+/build
 logs

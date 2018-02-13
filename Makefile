@@ -10,6 +10,12 @@ fix:
 test:
 	composer run-script phpunit
 
+t:
+	php artisan dusk
+
+w:
+	npm run w 
+
 run:
 	php -S localhost:80 -t public
 

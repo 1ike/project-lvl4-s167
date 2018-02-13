@@ -1,0 +1,8 @@
+module.exports = (str) => {
+    const exclusions = [
+        'tests/Browser/screenshots',
+        'tests/Browser/console'
+    ];
+
+    return  exclusions.indexOf(str) < 0;
+}
