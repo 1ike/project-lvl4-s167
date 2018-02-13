@@ -16,6 +16,10 @@ class AppServiceProvider extends ServiceProvider
         /* Blade::directive('projectName', function () {
             return 'Task Manager @ Laravel';
         }); */
+
+        if (env('APP_HTTPS')) {
+            $url->forceSchema('https');
+        }
     }
 
     /**
@@ -28,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('production')) {
             $this->app->register(\Rollbar\Laravel\RollbarServiceProvider::class);
         }
+
         if ($this->app->environment(['local', 'testing'])) {
             $this->app->register(\Laravel\Dusk\DuskServiceProvider::class);
         }
