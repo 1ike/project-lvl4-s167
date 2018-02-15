@@ -13,6 +13,7 @@ class UserTest extends DuskTestCase
     use DatabaseMigrations;
 
     protected $email = 'vasiliy@pupkin.com';
+    protected $usersURL = '/users';
 
     /**
      * Create User.
@@ -38,7 +39,7 @@ class UserTest extends DuskTestCase
             ->type('password', $user->password)
             ->type('password_confirmation', $user->password)
             ->press('Register')
-            ->assertPathIs(route('users.index'));
+            ->assertPathIs($this->usersURL);
         });
 
         $this->assertDatabaseHas('users', [
@@ -68,7 +69,7 @@ class UserTest extends DuskTestCase
             ->type('email', $user->email)
             ->type('password', $pass)
             ->press('Login')
-            ->assertPathIs(route('users.index'));
+            ->assertPathIs($this->usersURL);
         });
     }
 
@@ -94,15 +95,15 @@ class UserTest extends DuskTestCase
             ->type('name', "test $user->name")
             ->type('email', $user->email)
             ->type('password', $pass)
-            ->type('password_confirmation', $pass)
+            // ->type('password_confirmation', $pass)
             ->press('Edit')
-            ->assertPathIs(route('users.index'))
+            ->assertPathIs($this->usersURL)
             ->clickLink("test $user->name")
             ->clickLink('Edit')
             ->press('Delete profile')
             ->assertDialogOpened('Are you realy want delete profile?')
             ->acceptDialog()
-            ->assertPathIs(route('users.index'));
+            ->assertPathIs($this->usersURL);
         });
 
 
