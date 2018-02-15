@@ -53,9 +53,9 @@
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover",
             "npm i",
-            "npm run prod",
-            "@php artisan package:discover"
+            "npm run prod"
         ],
         "phpcs": "phpcs",
         "phpcbf": "phpcbf",
