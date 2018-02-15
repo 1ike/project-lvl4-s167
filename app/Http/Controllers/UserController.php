@@ -13,7 +13,10 @@ class UserController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/users';
+    protected function redirectTo()
+    {
+        return redirect(route('users.index'));
+    }
 
 
     /**
@@ -76,7 +79,7 @@ class UserController extends Controller
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6',
         ]);
     }
 
@@ -102,7 +105,7 @@ class UserController extends Controller
 
         flash("Profile&nbsp; \"$user->name\" &nbsp;was updated!");
 
-        return redirect($this->redirectTo);
+        return $this->redirectTo();
     }
 
 
@@ -119,6 +122,6 @@ class UserController extends Controller
         flash("Profile&nbsp; \"$user->name\" &nbsp;was deleted!");
         $user->delete();
 
-        return redirect($this->redirectTo);
+        return $this->redirectTo();
     }
 }

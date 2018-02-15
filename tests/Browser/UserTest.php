@@ -38,7 +38,7 @@ class UserTest extends DuskTestCase
             ->type('password', $user->password)
             ->type('password_confirmation', $user->password)
             ->press('Register')
-            ->assertPathIs('/users');
+            ->assertPathIs(route('users.index'));
         });
 
         $this->assertDatabaseHas('users', [
@@ -68,7 +68,7 @@ class UserTest extends DuskTestCase
             ->type('email', $user->email)
             ->type('password', $pass)
             ->press('Login')
-            ->assertPathIs('/users');
+            ->assertPathIs(route('users.index'));
         });
     }
 
@@ -96,13 +96,13 @@ class UserTest extends DuskTestCase
             ->type('password', $pass)
             ->type('password_confirmation', $pass)
             ->press('Edit')
-            ->assertPathIs('/users')
+            ->assertPathIs(route('users.index'))
             ->clickLink("test $user->name")
             ->clickLink('Edit')
             ->press('Delete profile')
             ->assertDialogOpened('Are you realy want delete profile?')
             ->acceptDialog()
-            ->assertPathIs('/users');
+            ->assertPathIs(route('users.index'));
         });
 
 
