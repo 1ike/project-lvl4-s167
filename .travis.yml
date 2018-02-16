@@ -11,6 +11,7 @@ addons:
 install:
   - composer self-update
   - make install
+  - npm i
   # - cp .env.testing .env
   # - travis_retry composer install --no-interaction --prefer-dist --no-suggest
 
@@ -21,7 +22,7 @@ before_script:
   # - make s &
 
 script:
-  - make test
+  - npm run travis
   # - php artisan dusk
 
 after_script:
