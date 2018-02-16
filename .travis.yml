@@ -21,7 +21,7 @@ before_script:
   - make s &
 
 script:
-  - DB_DATABASE=:memory: composer run-script phpunit
+  - DB_DATABASE=':memory:' composer run-script phpunit
   - php artisan dusk
 
 after_script:
