@@ -21,7 +21,7 @@ before_script:
   - make s &
 
 script:
-  - npm run travis
+  - make test
   - php artisan dusk
 
 after_script:
