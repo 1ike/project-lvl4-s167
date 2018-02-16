@@ -21,8 +21,8 @@ before_script:
   - make s &
 
 script:
-  - make test
   - php artisan dusk
+  - make test
 
 after_script:
   - vendor/bin/test-reporter
