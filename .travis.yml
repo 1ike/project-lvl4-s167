@@ -22,7 +22,7 @@ before_script:
   - make s &
 
 script:
-  - cross-env DB_DATABASE=':memory:' composer run-script phpunit
+  - npm run travis
   - php artisan dusk
 
 after_script:
