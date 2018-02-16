@@ -10,7 +10,7 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "w": "watch \"cross-env DB_DATABASE=:memory: composer run-script phpunit\" tests",
         "wd": "watch 'php artisan dusk' tests --filter=.watch",
-        "travis": "cross-env DB_DATABASE=:memory: composer run-script phpunit",
+        "travis": "cross-env DB_DATABASE=:memory: composer run-script phpunit"
     },
     "devDependencies": {
         "axios": "^0.17",
