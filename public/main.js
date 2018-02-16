@@ -68,8 +68,10 @@
 /***/ 9:
 /***/ (function(module, exports, __webpack_require__) {
 
-(function webpackMissingModule() { throw new Error("Cannot find module \"php artisan dusk\""); }());
-(function webpackMissingModule() { throw new Error("Cannot find module \"/home/andy/hexlet/php4/tests/\""); }());
+(function webpackMissingModule() { throw new Error("Cannot find module \"composer\""); }());
+(function webpackMissingModule() { throw new Error("Cannot find module \"run-script\""); }());
+(function webpackMissingModule() { throw new Error("Cannot find module \"phpunit\""); }());
+(function webpackMissingModule() { throw new Error("Cannot find module \"C:\\TEMP\\Programming\\hexlet\\php4\\tests\\\""); }());
 
 
 /***/ })

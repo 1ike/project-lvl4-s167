@@ -8,6 +8,9 @@
 
 <h1>{{ $title }}</h1>
 
+@if ($users->isEmpty())
+<p>There are no users yet.</p>
+@else
 <div class="d-inline-block">
     <table class="table table-responsive mt-4 mb-5">
         <thead>
@@ -40,6 +43,6 @@
         {{ $users->links() }}
     </nav>
 </div>
-
+@endif
 
 @endsection

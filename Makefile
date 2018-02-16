@@ -14,7 +14,10 @@ t:
 	php artisan dusk
 
 w:
-	npm run w 
+	npm run w
+
+wd:
+	npm run wd
 
 run:
 	php -S localhost:80 -t public
