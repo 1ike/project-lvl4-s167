@@ -14,6 +14,7 @@ class UserTest extends TestCase
 
     protected function setUp()
     {
+        parent::setUp();
         // $this->stack = [];
     }
 
