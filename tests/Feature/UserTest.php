@@ -20,7 +20,9 @@ class UserTest extends TestCase
     public function testCreateUser()
     {
         $user = factory(User::class)->make();
-
+        $this->assertDatabaseHas('users', [
+            'email' => $user->email
+        ]);
         $this->post(route('register'), [
                  'name' => $user->name,
                  'email' => $user->email,

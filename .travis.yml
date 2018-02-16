@@ -2,11 +2,11 @@ language: php
 php:
   - "7.2"
 
-sudo: required
-dist: trusty
+# sudo: required
+# dist: trusty
 
-addons:
-  chrome: stable
+# addons:
+#   chrome: stable
 
 install:
   - composer self-update
