@@ -15,7 +15,6 @@ class UserTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        // $this->stack = [];
     }
 
     /**
@@ -27,16 +26,14 @@ class UserTest extends TestCase
     {
         $user = factory(User::class)->make();
 
-// var_dump(csrf_token());
-
         $r = $this->post(route('register'), [
-                 'name' => $user->name,
-                 'email' => $user->email,
-                 'password' => $user->password,
-                 'password_confirmation' => $user->password
-             ]);
-            //  ->assertRedirect(route('users.index'));
-// var_dump($r->headers);
+                     'name' => $user->name,
+                     'email' => $user->email,
+                     'password' => $user->password,
+                     'password_confirmation' => $user->password
+                 ])
+                 ->assertRedirect(route('users.index'));
+
         $this->assertDatabaseHas('users', [
             'email' => $user->email
         ]);
@@ -85,7 +82,6 @@ class UserTest extends TestCase
 
         $this->actingAs($user)
              ->post(route('users.update', $user->id), [
-                 '_token' => csrf_token(),
                  '_method' => 'PUT',
                  'name' => $newName,
                  'email' => $user->email,
