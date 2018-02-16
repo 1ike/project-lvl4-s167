@@ -12,6 +12,11 @@ class UserTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp()
+    {
+        // $this->stack = [];
+    }
+
     /**
      * Create user.
      *
@@ -21,14 +26,15 @@ class UserTest extends TestCase
     {
         $user = factory(User::class)->make();
 
-        $this->post(route('register'), [
+        $r = $this->post(route('register'), [
+                 '_token' => session('_token'),
                  'name' => $user->name,
                  'email' => $user->email,
                  'password' => $user->password,
                  'password_confirmation' => $user->password
              ]);
             //  ->assertRedirect(route('users.index'));
-
+var_dump($r);
         $this->assertDatabaseHas('users', [
             'email' => $user->email
         ]);
