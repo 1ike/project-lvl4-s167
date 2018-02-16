@@ -13,7 +13,6 @@ install:
   # - make install
   # - cp .env.testing .env
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
-  - npm i cross-env
 
 before_script:
   # - touch database/database.sqlite
