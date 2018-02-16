@@ -36,7 +36,7 @@ class UserTest extends TestCase
                  'password_confirmation' => $user->password
              ]);
             //  ->assertRedirect(route('users.index'));
-var_dump($r->headers);
+// var_dump($r->headers);
         $this->assertDatabaseHas('users', [
             'email' => $user->email
         ]);
@@ -85,6 +85,7 @@ var_dump($r->headers);
 
         $this->actingAs($user)
              ->post(route('users.update', $user->id), [
+                 '_token' => csrf_token(),
                  '_method' => 'PUT',
                  'name' => $newName,
                  'email' => $user->email,
