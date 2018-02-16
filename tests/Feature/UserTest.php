@@ -27,7 +27,6 @@ class UserTest extends TestCase
         $user = factory(User::class)->make();
 
         $r = $this->post(route('register'), [
-                 '_token' => session('_token'),
                  'name' => $user->name,
                  'email' => $user->email,
                  'password' => $user->password,
