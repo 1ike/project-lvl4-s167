@@ -30,14 +30,13 @@ class UserTest extends TestCase
 // var_dump(csrf_token());
 
         $r = $this->post(route('register'), [
-                 '_token' => csrf_token(),
                  'name' => $user->name,
                  'email' => $user->email,
                  'password' => $user->password,
                  'password_confirmation' => $user->password
              ]);
             //  ->assertRedirect(route('users.index'));
-// var_dump($r);
+var_dump($r->headers);
         $this->assertDatabaseHas('users', [
             'email' => $user->email
         ]);
