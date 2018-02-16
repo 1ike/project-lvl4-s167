@@ -15,14 +15,14 @@ install:
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
 
 before_script:
-  # - touch database/database.sqlite
-  # - php artisan migrate
+  - touch database/database.sqlite
+  - php artisan migrate
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   - make s &
 
 script:
-  - php artisan dusk
   - make test
+  - php artisan dusk
 
 after_script:
   - vendor/bin/test-reporter
