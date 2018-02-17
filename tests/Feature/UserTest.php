@@ -80,14 +80,19 @@ class UserTest extends TestCase
         ]);
         $newName = $user->name . 'test';
 
-        $this->actingAs($user)
+        $token = 'csrf_token()';
+        // $token = session()->token();
+        // var_dump($token);
+
+        $this->actingAs($user)->withSession(['_token' => $token ])
              ->post(route('users.update', $user->id), [
-                 '_token' => session()->token(),
+                 '_token' => csrf_token(),
                  '_method' => 'PUT',
                  'name' => $newName,
                  'email' => $user->email,
                  'password' => $pass
              ])
+            //  ->assertSeeText('users.index');
              ->assertRedirect(route('users.index'));
 
         $this->assertDatabaseHas('users', [
