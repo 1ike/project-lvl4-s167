@@ -80,9 +80,7 @@ class UserTest extends TestCase
         ]);
         $newName = $user->name . 'test';
 
-        $this->actingAs($user)->withHeaders([
-            'X-CSRF-TOKEN' => session()->token(),
-        ])
+        $this->actingAs($user)
              ->post(route('users.update', $user->id), [
                  '_method' => 'PUT',
                  'name' => $newName,
