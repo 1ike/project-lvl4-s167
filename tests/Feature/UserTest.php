@@ -80,9 +80,10 @@ $token = csrf_token();
             'password' => bcrypt($pass)
         ]);
         $newName = $user->name . 'test';
-        csrf_token();
+        $token = csrf_token();
         $this->actingAs($user)
              ->post(route('users.update', $user->id), [
+                '_token' => $token,
                  '_method' => 'PUT',
                  'name' => $newName,
                  'email' => $user->email,
