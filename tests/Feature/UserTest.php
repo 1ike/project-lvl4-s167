@@ -26,13 +26,15 @@ class UserTest extends TestCase
     {
         $user = factory(User::class)->make();
 
-        $r = $this->post(route('register'), [
-                     'name' => $user->name,
-                     'email' => $user->email,
-                     'password' => $user->password,
-                     'password_confirmation' => $user->password
-                 ])
-                 ->assertRedirect(route('users.index'));
+        $this->withSession(['_token' => 'secret' ])
+             ->post(route('register'), [
+                 '_token' => csrf_token(),
+                 'name' => $user->name,
+                 'email' => $user->email,
+                 'password' => $user->password,
+                 'password_confirmation' => $user->password
+             ])
+             ->assertRedirect(route('users.index'));
 
         $this->assertDatabaseHas('users', [
             'email' => $user->email
@@ -53,7 +55,9 @@ class UserTest extends TestCase
 
         $this->assertGuest();
 
-        $this->post(route('login'), [
+        $this->withSession(['_token' => 'secret' ])
+             ->post(route('login'), [
+                 '_token' => csrf_token(),
                  'email' => $user->email,
                  'password' => $pass
              ])
@@ -80,11 +84,7 @@ class UserTest extends TestCase
         ]);
         $newName = $user->name . 'test';
 
-        $token = 'csrf_token()';
-        // $token = session()->token();
-        // var_dump($token);
-
-        $this->actingAs($user)->withSession(['_token' => $token ])
+        $this->actingAs($user)->withSession(['_token' => 'secret' ])
              ->post(route('users.update', $user->id), [
                  '_token' => csrf_token(),
                  '_method' => 'PUT',
@@ -92,7 +92,6 @@ class UserTest extends TestCase
                  'email' => $user->email,
                  'password' => $pass
              ])
-            //  ->assertSeeText('users.index');
              ->assertRedirect(route('users.index'));
 
         $this->assertDatabaseHas('users', [
@@ -114,8 +113,9 @@ class UserTest extends TestCase
             'id' => $user->id,
         ]);
 
-        $this->actingAs($user)
+        $this->actingAs($user)->withSession(['_token' => 'secret' ])
              ->post(route('users.destroy', $user->id), [
+                 '_token' => csrf_token(),
                  '_method' => 'DELETE'
              ])
              ->assertRedirect(route('users.index'));
