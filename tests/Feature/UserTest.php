@@ -82,6 +82,7 @@ class UserTest extends TestCase
 
         $this->actingAs($user)
              ->post(route('users.update', $user->id), [
+                 '_token' => session()->token(),
                  '_method' => 'PUT',
                  'name' => $newName,
                  'email' => $user->email,

@@ -92,9 +92,9 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $data = $request->all();
         $this->checkPermissions($user);
 
-        $data = $request->all();
 
         $this->validator($data)->validate();
 
@@ -105,7 +105,8 @@ class UserController extends Controller
 
         flash("Profile&nbsp; \"$user->name\" &nbsp;was updated!");
 
-        return $this->redirectTo();
+        // return $this->redirectTo();
+        return $data;
     }
 
 
