@@ -33,7 +33,7 @@ class UserTest extends TestCase
                      'password_confirmation' => $user->password
                  ])
                  ->assertRedirect(route('users.index'));
-       echo session()->token(); 
+
         $this->assertDatabaseHas('users', [
             'email' => $user->email
         ]);
