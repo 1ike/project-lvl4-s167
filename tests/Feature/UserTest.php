@@ -25,7 +25,7 @@ class UserTest extends TestCase
     public function testCreateUser()
     {
         $user = factory(User::class)->make();
-
+        $this->assertGuest();
         $this->withSession(['_token' => 'secret' ])
              ->post(route('register'), [
                  '_token' => csrf_token(),
