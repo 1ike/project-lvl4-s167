@@ -65,7 +65,8 @@ class UserTest extends TestCase
 
         $this->assertAuthenticatedAs($user);
 
-        $this->post(route('logout'))
+        $this->withSession(['_token' => 'secret' ])
+             ->post(route('logout'), ['_token' => csrf_token()])
              ->assertRedirect(route('home'));
 
         $this->assertGuest();
