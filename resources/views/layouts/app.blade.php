@@ -35,6 +35,14 @@
                         <li class="nav-item{{ $isUsers ? ' active' : '' }}">
                             <a class="nav-link" href="{{ route($users) }}">Users{!! $isUsers ? ' <span class="sr-only">(current)</span>' : '' !!}</a>
                         </li>
+
+                        @php
+                            $taskstatuses = 'taskstatuses.index';
+                            $isTaskstatuses = $currentRoute === $taskstatuses;
+                        @endphp
+                        <li class="nav-item{{ $isTaskstatuses ? ' active' : '' }}">
+                            <a class="nav-link" href="{{ route($taskstatuses) }}">Task Statuses{!! $isTaskstatuses ? ' <span class="sr-only">(current)</span>' : '' !!}</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

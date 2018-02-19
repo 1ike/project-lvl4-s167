@@ -19,4 +19,4 @@ Auth::routes();
 
 Route::resource('users', 'UserController', ['except' => ['create', 'store', 'show']]);
 
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('taskstatuses', 'TaskStatusController', ['except' => ['show']]);

@@ -11,7 +11,7 @@ class UserController extends Controller
     /**
      * Where to redirect users after update or delete.
      *
-     * @var string
+     * @return \Illuminate\Http\Response
      */
     protected function redirectTo()
     {
@@ -29,7 +29,7 @@ class UserController extends Controller
         $title = 'Users';
         $users = User::paginate(10);
 
-        return view('users/users', [
+        return view('users.index', [
             'title' => $title,
             'users' => $users,
         ]);
@@ -61,7 +61,7 @@ class UserController extends Controller
 
         $title = 'Edit user profile';
 
-        return view('users/edit', [
+        return view('users.edit', [
             'title' => $title,
             'user' => $user,
         ]);
