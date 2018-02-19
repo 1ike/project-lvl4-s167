@@ -96,7 +96,7 @@ class UserTest extends DuskTestCase
             ->type('email', $user->email)
             ->type('password', $pass)
             // ->type('password_confirmation', $pass)
-            ->press('Edit')
+            ->press('Save changes')
             ->assertPathIs($this->usersURL)
             ->clickLink("test $user->name")
             ->clickLink('Edit')
