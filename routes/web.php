@@ -20,3 +20,5 @@ Auth::routes();
 Route::resource('users', 'UserController', ['except' => ['create', 'store', 'show']]);
 
 Route::resource('taskstatuses', 'TaskStatusController', ['except' => ['show']]);
+
+Route::resource('tasks', 'TaskController', ['except' => ['show']]);

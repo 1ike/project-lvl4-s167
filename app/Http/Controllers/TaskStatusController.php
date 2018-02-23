@@ -50,7 +50,7 @@ class TaskStatusController extends Controller
      */
     public function create()
     {
-        $this->authorize('edit-taskstatus');
+        $this->authorize('manage-taskstatus');
 
         return view('taskstatuses.create');
     }
@@ -64,7 +64,7 @@ class TaskStatusController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('edit-taskstatus');
+        $this->authorize('manage-taskstatus');
 
         $request->validate($this->validationsRules);
 
@@ -86,7 +86,7 @@ class TaskStatusController extends Controller
      */
     public function edit(TaskStatus $taskstatus)
     {
-        $this->authorize('edit-taskstatus');
+        $this->authorize('manage-taskstatus');
 
         return view('taskstatuses.edit', [
             'taskstatus' => $taskstatus,
@@ -103,7 +103,7 @@ class TaskStatusController extends Controller
      */
     public function update(Request $request, TaskStatus $taskstatus)
     {
-        $this->authorize('edit-taskstatus');
+        $this->authorize('manage-taskstatus');
 
         $request->validate($this->validationsRules);
 
@@ -124,10 +124,11 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskstatus)
     {
-        $this->authorize('edit-taskstatus');
+        $this->authorize('manage-taskstatus');
+
+        $taskstatus->delete();
 
         flash("Task Status&nbsp; \"$taskstatus->name\" &nbsp;was deleted!");
-        $taskstatus->delete();
 
         return $this->redirectTo();
     }

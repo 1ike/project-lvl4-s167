@@ -30,8 +30,12 @@ class AuthServiceProvider extends ServiceProvider
             return  $user->id === $model->id || $user->isAdmin();
         });
 
-        Gate::define('edit-taskstatus', function ($user) {
+        Gate::define('manage-taskstatus', function ($user) {
             return  $user->isAdmin();
+        });
+
+        Gate::define('edit-task', function ($user, $model) {
+            return  $user->id === $model->creator_id || $user->isAdmin();
         });
     }
 }

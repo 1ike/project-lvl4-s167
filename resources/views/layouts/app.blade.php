@@ -29,6 +29,14 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @php
+                            $tasks = 'tasks.index';
+                            $isTasks = $currentRoute === $tasks;
+                        @endphp
+                        <li class="nav-item{{ $isTasks ? ' active' : '' }}">
+                            <a class="nav-link" href="{{ route($tasks) }}">Tasks{!! $isTasks ? ' <span class="sr-only">(current)</span>' : '' !!}</a>
+                        </li>
+
+                        @php
                             $users = 'users.index';
                             $isUsers = $currentRoute === $users;
                         @endphp

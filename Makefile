@@ -1,4 +1,8 @@
-install:
+install: npm
+	npm run prod
+npm: composer
+	npm i
+composer:
 	composer install
 
 lint:

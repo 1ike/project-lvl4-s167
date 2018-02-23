@@ -9,9 +9,11 @@ addons:
   chrome: stable
 
 install:
-  - make install
+  # - make install
   # - cp .env.testing .env
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
+  - npm i
+  - npm run prod
 
 before_script:
   # - touch database/database.sqlite

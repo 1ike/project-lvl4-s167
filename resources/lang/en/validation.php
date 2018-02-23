@@ -100,8 +100,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'status_id' => [
+            'required' => 'There are no statuses created yet.',
+            'integer' => 'There is no such status. May be it has been deleted.',
         ],
     ],
 

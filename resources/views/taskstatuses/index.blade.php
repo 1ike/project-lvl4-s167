@@ -27,7 +27,7 @@
             <tr>
                 <th scope="row">{{ $taskstatus->id }}</th>
                 <td>
-                @if (Gate::allows('edit-taskstatus'))
+                @if (Gate::allows('manage-taskstatus'))
                     <a href="{{ route('taskstatuses.edit', ['id' => $taskstatus->id]) }}">{{ $taskstatus->name }}</a>
                 @else
                     {{ $taskstatus->name }}
@@ -46,7 +46,7 @@
 </div>
 @endif
 <br>
-@if (Gate::allows('edit-taskstatus'))
+@if (Gate::allows('manage-taskstatus'))
 <a href="{{ route('taskstatuses.create') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Create status</a>
 @endif
 
