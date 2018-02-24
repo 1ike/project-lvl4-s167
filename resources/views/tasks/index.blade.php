@@ -22,6 +22,7 @@
                 <th scope="col">status</th>
                 <th scope="col">creator</th>
                 <th scope="col">assignedTo</th>
+                <th scope="col">tags</th>
                 <th scope="col">created_at</th>
                 <th scope="col">updated_at</th>
             </tr>
@@ -41,6 +42,7 @@
                 <td>{{ $task->status->name ?? ''  }}</td>
                 <td>{{ $task->creator->name ?? ''  }}</td>
                 <td>{{ $task->assignedTo->name ?? '' }}</td>
+                <td>{{ tagsList($task) }}</td>
                 <td>{{ $task->created_at }}</td>
                 <td>{{ $task->updated_at }}</td>
             </tr>

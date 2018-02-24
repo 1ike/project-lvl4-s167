@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Tag;
 use App\Task;
 use App\TaskStatus;
 use App\User;
 use Illuminate\Http\Request;
+// use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -43,6 +46,35 @@ class TaskController extends Controller
      * @var array
      */
     protected $tagsList;
+
+    /**
+     * Current tags collection.
+     *
+     * @var array
+     */
+    protected $tags;
+
+
+    /**
+     * Previous tags collection.
+     *
+     * @var array
+     */
+    protected $previousTags;
+
+    /**
+     * New tags collection.
+     *
+     * @var array
+     */
+    protected $tagsIncrement;
+
+    /**
+     * Removed tags collection.
+     *
+     * @var array
+     */
+    protected $tagsDecrement;
 
 
     /**
@@ -114,7 +146,70 @@ class TaskController extends Controller
         $task->status()->associate($this->status);
         $task->assignedTo()->associate($this->assignedTo);
         $task->creator()->associate(Auth::user());
+
         $task->save();
+
+        $tagsListRaw = explode(',', $request->tags);
+        $trimmedList = array_map(function ($tagName) {
+            return trim($tagName);
+        }, $tagsListRaw);
+
+        $this->tagsList = collect($trimmedList)
+            ->reject(function ($name) {
+                return empty($name);
+            })
+            ->unique()
+            // ->values()
+            ->all();
+
+        $tags = array_map(function ($tagName) {
+            return Tag::firstOrCreate(['name' => $tagName]);
+        }, $this->tagsList);
+        $this->tags = new Collection($tags);
+    }
+
+
+    /**
+     * Save tags.
+     *
+     * @param  \App\Task  $task
+     * @param  \Illuminate\Support\Collection  $tags
+     * @return void
+     */
+    protected function saveNewTags(Task $task, Collection $tags)
+    {
+        foreach ($tags as $tag) {
+            $task->tags()->attach($tag->id);
+        }
+    }
+
+    /**
+     * Remove tags.
+     *
+     * @param  \App\Task  $task
+     * @return void
+     */
+    protected function removeOldTags(Task $task)
+    {
+        foreach ($this->tagsDecrement as $tag) {
+            $task->tags()->detach($tag->id);
+            if ($tag->tasks()->count()) {
+                $tag->delete();
+            }
+        }
+    }
+
+    /**
+     * Prepare tags for update.
+     *
+     * @param  \App\Task  $task
+     * @return void
+     */
+    protected function prepareTagsForUpdate(Task $task)
+    {
+        $this->previousTags = $task->tags;
+        $this->tagsIncrement = $this->tags->diff($this->previousTags);
+        $this->tagsDecrement = $this->previousTags->diff($this->tags);
     }
 
 
@@ -155,7 +250,7 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         DB::beginTransaction();
-        // $request->status_id = 100;
+
         $validator = $this->getValidator($request);
 
         if ($validator->fails()) {
@@ -166,6 +261,7 @@ class TaskController extends Controller
         }
 
         $this->saveTask($request, $task = Task::make());
+        $this->saveNewTags($task, $this->tags);
 
         DB::commit();
 
@@ -204,10 +300,23 @@ class TaskController extends Controller
     {
         $this->authorize('edit-task', $task);
 
-        $request->validate($this->validationsRules);
+        DB::beginTransaction();
 
-        $task->name = $request->name;
-        $task->save();
+        $validator = $this->getValidator($request);
+
+        if ($validator->fails()) {
+            DB::commit();
+            return redirect(route('tasks.create'))
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $this->saveTask($request, $task);
+        $this->prepareTagsForUpdate($task);
+        $this->saveNewTags($task, $this->tagsIncrement);
+        $this->removeOldTags($task);
+
+        DB::commit();
 
         flash("Task&nbsp; \"$task->name\" &nbsp;was updated!");
 

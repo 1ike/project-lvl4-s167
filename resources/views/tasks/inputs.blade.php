@@ -69,7 +69,7 @@
     <label for="tags" class="col-md-4 col-form-label text-md-right">Tags</label>
 
     <div class="col-md-6">
-        <input id="tags" type="text" class="form-control{{ $errors->has('tags') ? ' is-invalid' : '' }}" name="tags" value="{{ old('tags') ?: $task->tags  }}">
+        <input id="tags" type="text" class="form-control{{ $errors->has('tags') ? ' is-invalid' : '' }}" name="tags" value="{{ old('tags') ?: tagsList($task) }}">
 
         @if ($errors->has('tags'))
             <span class="invalid-feedback">

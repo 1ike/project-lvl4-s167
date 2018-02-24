@@ -41,4 +41,11 @@ class Task extends Model
     }
 
 
+    /**
+     * Get the tag record associated with the task.
+     */
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag', 'task_tag');
+    }
 }
