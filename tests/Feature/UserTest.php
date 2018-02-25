@@ -12,11 +12,6 @@ class UserTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp()
-    {
-        parent::setUp();
-    }
-
     /**
      * Create user.
      *
