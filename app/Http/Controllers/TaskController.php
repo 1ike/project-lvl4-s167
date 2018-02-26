@@ -176,7 +176,7 @@ class TaskController extends Controller
      * @param  \Illuminate\Support\Collection  $tags
      * @return void
      */
-    protected function saveNewTags(Task $task, Collection $tags)
+    protected function saveTags(Task $task, Collection $tags)
     {
         foreach ($tags as $tag) {
             $task->tags()->attach($tag->id);
@@ -189,11 +189,11 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return void
      */
-    protected function removeOldTags(Task $task)
+    protected function removeTags(Task $task, Collection $tags)
     {
-        foreach ($this->tagsDecrement as $tag) {
+        foreach ($tags as $tag) {
             $task->tags()->detach($tag->id);
-            if ($tag->tasks()->count()) {
+            if (!$tag->tasks()->count()) {
                 $tag->delete();
             }
         }
@@ -261,7 +261,7 @@ class TaskController extends Controller
         }
 
         $this->saveTask($request, $task = Task::make());
-        $this->saveNewTags($task, $this->tags);
+        $this->saveTags($task, $this->tags);
 
         DB::commit();
 
@@ -313,8 +313,8 @@ class TaskController extends Controller
 
         $this->saveTask($request, $task);
         $this->prepareTagsForUpdate($task);
-        $this->saveNewTags($task, $this->tagsIncrement);
-        $this->removeOldTags($task);
+        $this->saveTags($task, $this->tagsIncrement);
+        $this->removeTags($task, $this->tagsDecrement);
 
         DB::commit();
 
@@ -332,6 +332,8 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         $this->authorize('edit-task', $task);
+
+        $this->removeTags($task, $task->tags);
 
         $task->delete();
 

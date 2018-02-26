@@ -22,3 +22,9 @@ Route::resource('users', 'UserController', ['except' => ['create', 'store', 'sho
 Route::resource('taskstatuses', 'TaskStatusController', ['except' => ['show']]);
 
 Route::resource('tasks', 'TaskController', ['except' => ['show']]);
+
+Route::get('/tags', function () {
+    return view('tags.index', [
+        'tags' => App\Tag::paginate(10),
+    ]);
+})->name('tags');

@@ -28,12 +28,12 @@ class TaskStatusTest extends TestCase
      */
     public function testCreateTaskStatus()
     {
-         $this->actingAs($this->user)
+        $this->actingAs($this->user)
              ->get(route('taskstatuses.create'))
              ->assertSeeTextInOrder([
-                'Name',
-                'Create',
-            ]);
+                 'Name',
+                 'Create',
+             ]);
 
 
         $name = 'new';
@@ -63,12 +63,12 @@ class TaskStatusTest extends TestCase
         $newName = $status->name . 'test';
 
         $this->actingAs($this->user)
-        ->get(route('taskstatuses.edit', $status->id))
-        ->assertSeeTextInOrder([
-           'Name',
-           'Save',
-           'Delete',
-        ]);
+             ->get(route('taskstatuses.edit', $status->id))
+             ->assertSeeTextInOrder([
+                 'Name',
+                 'Save',
+                 'Delete',
+             ]);
 
         $this->actingAs($this->user)->withSession(['_token' => 'secret' ])
              ->post(route('taskstatuses.update', $status->id), [
