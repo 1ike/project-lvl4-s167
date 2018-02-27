@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('edit-user', function ($user, $model) {
-            return  $user->id === $model->id || $user->isAdmin();
+            return  $user->id == $model->id || $user->isAdmin(); // sqlite rules!
         });
 
         Gate::define('manage-taskstatus', function ($user) {
@@ -35,7 +35,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('edit-task', function ($user, $model) {
-            return  $user->id === $model->creator_id || $user->isAdmin();
+            return  $user->id == $model->creator_id || $user->isAdmin(); // sqlite rules!
         });
     }
 }

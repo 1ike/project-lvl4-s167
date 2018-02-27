@@ -47,7 +47,7 @@
 @endif
 <br>
 @if (Gate::allows('manage-taskstatus'))
-<a href="{{ route('taskstatuses.create') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Create status</a>
+<a href="{{ route('taskstatuses.create') }}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Create status</a>
 @endif
 
 @endsection

@@ -212,16 +212,62 @@ class TaskController extends Controller
         $this->tagsDecrement = $this->previousTags->diff($this->tags);
     }
 
+    /**
+     * Transform query data.
+     *
+     * @param  array  $data
+     * @return array
+     */
+    protected function getFilterState(array $data)
+    {
+        return array_reduce(array_keys($data), function ($acc, $key) use ($data) {
+            if ($data[$key]) {
+                switch ($key) {
+                    case 'creator_id':
+                    case 'status_id':
+                    case 'assignedTo_id':
+                        return array_merge($acc, array($key => [
+                            'type' => 'where',
+                            'column' => $key,
+                            'value' => $data[$key],
+                        ]));
+                    case 'tags':
+                        return array_merge($acc, array($key => [
+                            'type' => 'whereHas',
+                            'name' => $key,
+                            'column' => 'name',
+                            'value' => $data[$key],
+                        ]));
+                    default:
+                        list($key, $value) = explode(':', $data[$key]);
+                        return array_merge($acc, array('orderBy' => [
+                            'type' => 'orderBy',
+                            'column' => $key,
+                            'value' => $value,
+                        ]));
+                }
+            }
+
+            return $acc;
+        }, []);
+    }
+
 
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $filterState = $this->getFilterState($request->query());
+        $tasks = Task::filter($filterState)->paginate(10);
         return view('tasks.index', [
-            'tasks' => Task::paginate(10),
+            'tasks' => $tasks,
+            'statuses' => TaskStatus::all(),
+            'users' => User::all(),
+            'filter' => $filterState,
         ]);
     }
 

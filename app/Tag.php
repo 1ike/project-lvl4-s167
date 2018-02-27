@@ -21,5 +21,4 @@ class Tag extends Model
     {
         return $this->belongsToMany('App\Task', 'task_tag');
     }
-
 }

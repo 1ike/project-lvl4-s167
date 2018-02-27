@@ -9,6 +9,10 @@
 
 <h1>{{ $header }}</h1>
 
+@if (Auth::user())
+    @include('tasks.filters')
+@endif
+
 @if ($tasks->isEmpty())
 <p>There are no tasks yet.</p>
 @else
@@ -57,7 +61,7 @@
 @endif
 <br>
 @if (Auth::user())
-<a href="{{ route('tasks.create') }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Create task</a>
+<a href="{{ route('tasks.create') }}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Create task</a>
 @endif
 
 @endsection

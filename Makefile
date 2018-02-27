@@ -1,4 +1,4 @@
-install: npm
+install: npm m
 	npm run prod
 npm: composer
 	npm i
