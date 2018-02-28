@@ -19,6 +19,18 @@ class TaskStatusController extends Controller
         'name' => 'required|string|max:255|unique:task_statuses',
     ];
 
+
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->only('create', 'store');
+    }
+
+
     /**
      * Where to redirect users after update or delete.
      *
@@ -50,7 +62,7 @@ class TaskStatusController extends Controller
      */
     public function create()
     {
-        $this->authorize('manage-taskstatus');
+        // $this->authorize('manage-taskstatus');
 
         return view('taskstatuses.create');
     }
@@ -64,7 +76,7 @@ class TaskStatusController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('manage-taskstatus');
+        // $this->authorize('manage-taskstatus');
 
         $request->validate($this->validationsRules);
 
