@@ -1,9 +1,7 @@
-install: npm m
-	npm run prod
-npm: composer
-	npm i
-composer:
+install:
 	composer install
+	npm i
+	npm run prod
 
 lint:
 	composer run-script phpcs -- --standard=PSR2 app database resources routes storage tests
