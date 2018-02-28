@@ -1,5 +1,7 @@
 install:
 	composer install
+
+npm:
 	npm i
 	npm run prod
 
