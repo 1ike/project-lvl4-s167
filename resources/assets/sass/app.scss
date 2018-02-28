@@ -12,3 +12,37 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+.filter-btn {
+  $filter-btn-color: $link-color;
+  $width: 0.3em;
+  $height: 0.5em;
+
+  cursor: pointer;
+  color: $filter-btn-color;
+
+  &--pressed-asc, &--pressed-desc {
+    &:after  {
+      content: "";
+      display: inline-block;
+      width: $width;
+      height: $height;
+      border: $width solid transparent;
+      margin-left: 0.3em;
+    }
+  }
+
+  &--pressed-asc {
+    &:after  {
+      border-bottom: $height solid $filter-btn-color;
+      border-top: 0;
+    }
+  }
+
+  &--pressed-desc {
+    &:after  {
+      border-top: $height solid $filter-btn-color;
+      border-bottom: 0;
+    }
+  }
+}

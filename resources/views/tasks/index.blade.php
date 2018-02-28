@@ -9,9 +9,9 @@
 
 <h1>{{ $header }}</h1>
 
-@if (Auth::user())
-    @include('tasks.filters')
-@endif
+
+@include('tasks.mix.filters')
+
 
 @if ($tasks->isEmpty())
 <p>There are no tasks yet.</p>
@@ -20,15 +20,15 @@
     <table class="table table-responsive mt-4 mb-5">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">name</th>
-                <th scope="col">description</th>
+                @include('tasks.mix.button', ['text' => '#', 'columnName' => 'id'])
+                @include('tasks.mix.button', ['text' => 'name'])
+                @include('tasks.mix.button', ['text' => 'description'])
                 <th scope="col">status</th>
                 <th scope="col">creator</th>
                 <th scope="col">assignedTo</th>
                 <th scope="col">tags</th>
-                <th scope="col">created_at</th>
-                <th scope="col">updated_at</th>
+                @include('tasks.mix.button', ['text' => 'created_at'])
+                @include('tasks.mix.button', ['text' => 'updated_at'])
             </tr>
         </thead>
         <tbody class="table-striped">

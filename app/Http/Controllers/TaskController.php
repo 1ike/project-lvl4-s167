@@ -262,12 +262,17 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         $filterState = $this->getFilterState($request->query());
+        $filterStateDefault = array('orderBy' => [
+            'type' => 'orderBy',
+            'column' => 'id',
+            'value' => 'asc',
+        ]);
         $tasks = Task::filter($filterState)->paginate(10);
         return view('tasks.index', [
             'tasks' => $tasks,
             'statuses' => TaskStatus::all(),
             'users' => User::all(),
-            'filter' => $filterState,
+            'filter' => $filterState ?: $filterStateDefault,
         ]);
     }
 
