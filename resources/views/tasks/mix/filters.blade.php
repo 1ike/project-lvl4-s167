@@ -28,7 +28,7 @@
                     @endif
                         <option selected></option>
                     @foreach ($statuses as $status)
-                        <option value="{{ $status->id }}">{{ $status->name }}</option>
+                        <option value="{{ $status->id }}"{{ $status->id == ($filter['status_id']['value'] ?? '' ) ? 'selected' : '' }}>{{ $status->name }}</option>
                     @endforeach
                     </select>
 
@@ -64,7 +64,7 @@
             <div class="form-group row">
                 <label for="tags" class="col-md-4 col-form-label text-md-right">Tag</label>
                 <div class="col-md-6">
-                    <input id="tags" type="text" class="form-control{{ $errors->has('tags') ? ' is-invalid' : '' }}" name="tags" value="{{ old('tag') }}">
+                    <input id="tags" type="text" class="form-control{{ $errors->has('tags') ? ' is-invalid' : '' }}" name="tags" value="{{ $filter['tags']['value'] ?? '' }}">
                 </div>
             </div>
 

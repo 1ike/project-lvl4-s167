@@ -1,6 +1,7 @@
 (function () {
     const $form = $( "#filterForm" );
     const $input = $( "input[name=orderBy]" );
+
     $( ".filter-btn" ).click(function( event ) {
         event.preventDefault();
         const column = $( this ).data("column");
@@ -17,5 +18,20 @@
         }
 
         $form.submit();
+    });
+
+    $form.submit(function( event ) {
+        event.preventDefault();
+
+        $inputs = $( this ).find('input');
+        $selects = $( this ).find('select');
+
+        $inputs.add($selects).each(function() {
+            if (!this.value) {
+                this.parentNode.removeChild(this);
+            }
+        });
+
+        this.submit();
     });
 })();
