@@ -14,5 +14,5 @@ yarn-error.log
 /database/db.sqlite
 /build
 /public/css/app.css
-/public/js/app.js
+/public/js
 logs
